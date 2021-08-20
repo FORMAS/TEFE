@@ -1,12 +1,13 @@
 # TEFE
 TEFE - TimeBankPT Event Frame Extraction
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/FORMAS/TEFE/blob/master/notebook/colab-tefe.ipynb)
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/FORMAS/TEFE/blob/main/notebook/colab-tefe.ipynb)
 
 [![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)](https://hub.docker.com/r/andersonsacramento/tefe)
 
 
 # DESCRIPTION
-TEFE is a closed domain event extractor system for sentences in the Portuguese language. It extracts events from sentences, which means that it does event detection (i.e., event trigger identification and classification), and argument role prediction (i.e., argument identification and role classification). The event types are based on the typology of the FrameNet project (BAKER, 2017). 
+
+TEFE is a closed domain event extractor system for sentences in the Portuguese language. It extracts events from sentences, which means that it does event detection (i.e., event trigger identification and classification), and argument role prediction (i.e., argument identification and role classification). The event types are based on the typology of the FrameNet project (BAKER, 2017). The models were trained on an enriched TimeBankPT (COSTA; BRANCO,2012) corpus.
 
 The system outputs the event extractions in the following Json format:
 ```json
@@ -58,19 +59,19 @@ Currently, in this repository, are avaiable 5 diferent trained models: 0, 100, 0
    $ pip install -r requirements.txt
    ```
 
-3. Download and place all the other models (i.e., 0, 0-0, 100-0, 100-100):
-   * [Download link](https://drive.google.com/file/d/1isdiyUu5sXkS8DXdEBjE_pfi-ErjnutQ/view?usp=sharing)
-   * Then unzip and place it in the models directory as follows:
-	```
-	├──models
-	|     └── blstme_0_0.h5
-	|     └── blstme_100_100.h5
-	|     └── blstme_100.h5
-	|     └── blstmea_0.h5
-	|     └── blstmeat2_100_0.h5
-	|
-	|...
-	```
+<!-- 3. Download and place all the other models (i.e., 0, 0-0, 100-0, 100-100): -->
+<!--    * [Download link](https://drive.google.com/file/d/1isdiyUu5sXkS8DXdEBjE_pfi-ErjnutQ/view?usp=sharing) -->
+<!--    * Then unzip and place it in the models directory as follows: -->
+<!-- 	``` -->
+<!-- 	├──models -->
+<!-- 	|     └── blstme_0_0.h5 -->
+<!-- 	|     └── blstme_100_100.h5 -->
+<!-- 	|     └── blstme_100.h5 -->
+<!-- 	|     └── blstmea_0.h5 -->
+<!-- 	|     └── blstmeat2_100_0.h5 -->
+<!-- 	| -->
+<!-- 	|... -->
+<!-- 	``` -->
 
 
 # OPTIONS
