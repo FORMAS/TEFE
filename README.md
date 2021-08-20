@@ -33,7 +33,7 @@ Currently, in this repository, are avaiable 5 diferent trained models: 0, 100, 0
 
 ## Prerequisites
 
-1. Download and locate the BERTimbau Base (SOUZA; NOGUEIRA;LOTUFO, 2020) model and vocabulary file:
+1. Download and place the BERTimbau Base (SOUZA; NOGUEIRA;LOTUFO, 2020) model and vocabulary file:
     ```bash
     $ wget https://neuralmind-ai.s3.us-east-2.amazonaws.com/nlp/bert-base-portuguese-cased/bert-base-portuguese-cased_tensorflow_checkpoint.zip
 	```
@@ -57,6 +57,20 @@ Currently, in this repository, are avaiable 5 diferent trained models: 0, 100, 0
    ```bash
    $ pip install -r requirements.txt
    ```
+
+3. Download and place all the other models (i.e., 0, 0-0, 100-0, 100-100):
+   * [Download link](https://drive.google.com/file/d/1isdiyUu5sXkS8DXdEBjE_pfi-ErjnutQ/view?usp=sharing)
+   * Then unzip and place it in the models directory as follows:
+	```
+	├──models
+	|     └── blstme_0_0.h5
+	|     └── blstme_100_100.h5
+	|     └── blstme_100.h5
+	|     └── blstmea_0.h5
+	|     └── blstmeat2_100_0.h5
+	|
+	|...
+	```
 
 
 # OPTIONS

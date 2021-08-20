@@ -1,4 +1,9 @@
 models/BERTimbau/*
+models/blstme_0_0.h5
+models/blstme_100_100.h5
+models/blstmea_0.h5
+models/blstmeat2_100_0.h5
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
