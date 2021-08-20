@@ -28,7 +28,7 @@ The system outputs the event extractions in the following Json format:
 ]
   
 ```
-Currently, in this repository, are avaiable 5 diferent trained models: 0, 100, 0-0, 100-0, 100-100, which respectively correspond to: 514 event types (ET) and 1936 argument roles (AR), 7 ET and 93 AR, 214 ET and 477 AR, 5 ET and 42 AR, and 5 ET and 12 AR.
+Currently, in this repository, 5 diferent trained models are avaiable to execution: 0, 100, 0-0, 100-0, 100-100, which respectively correspond to: 514 event types (ET) and 1936 argument roles (AR), 7 ET and 93 AR, 214 ET and 477 AR, 5 ET and 42 AR, and 5 ET and 12 AR.
 
 # Local Execution
 
