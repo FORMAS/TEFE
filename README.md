@@ -103,7 +103,7 @@ $ python3 src/tefe.py --sentence 'A Petrobras aumentou o preço da gasolina para
 ```
 ## How to cite this work
 
-Peer-reviewed accepted papers:
+Peer-reviewed accepted paper:
 
 10th Brazilian Conference on Intelligent Systems (BRACIS)
 
