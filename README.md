@@ -7,22 +7,25 @@ TEFE - TimeBankPT Event Frame Extraction
 
 # DESCRIPTION
 
-TEFE is a closed domain event extractor system for sentences in the Portuguese language. It extracts events from sentences, which means that it does event detection (i.e., event trigger identification and classification), and argument role prediction (i.e., argument identification and role classification). The event types are based on the typology of the FrameNet project (BAKER, 2017). The models were trained on an enriched TimeBankPT (COSTA; BRANCO,2012) corpus.
+TEFE is a closed domain event extractor system for sentences in the Portuguese language. It extracts events from sentences, which means that it does event detection (i.e., event trigger identification and classification), and argument role prediction (i.e., argument identification and role classification). The event types are based on the typology of the FrameNet project (BAKER; FILLMORE; LOWE, 1998). The models were trained on an enriched TimeBankPT (COSTA; BRANCO,2012) corpus.
 
 The system outputs the event extractions in the following Json format:
 ```json
-[{"trigger": {
-              "text":       "disse",
-			  "start":      58,
-			  "end":        63,
-			  "event_type": "Statement",
-			  "arguments":  [{"role": "Speaker",
-			                  "text": "presidente",
-							  "start": 66,
-							  "end":   76,
-							  }
-							  ...
-						     ]
+[{
+  "trigger":    { 
+                 "text":   "disse",
+	         "start":  58,
+	         "end":    63,
+	        },  
+  "event_type": "Statement",
+  "arguments":  [{
+                  "role":  "Speaker",
+	          "text":  "presidente",
+	          "start": 66,
+	          "end":   76
+		  },
+		  ...
+		]    
   },
   ...
 ]
