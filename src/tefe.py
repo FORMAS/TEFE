@@ -150,7 +150,7 @@ def get_args_from_labels(label_args, is_arp=True):
         return args
 
 
-def extract_events(text, feature_option):
+def extract_events(text, feature_option, is_pprint=True):
         text_tokens = get_sentence_original_tokens(text, tokenize_and_compose(text))
         features = extract(text, {feature_option:True})[feature_option]
         embeddings = np.array(features).reshape((len(text_tokens), 768))
@@ -190,6 +190,8 @@ def extract_events(text, feature_option):
                                'arguments':args_event,
                                'event_type': event_type['name']
                                })
+        if is_pprint:
+                return json.dumps(output, indent=4)
         return output
 
 

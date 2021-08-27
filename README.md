@@ -11,23 +11,25 @@ TEFE is a closed domain event extractor system for sentences in the Portuguese l
 
 The system outputs the event extractions in the following Json format:
 ```json
-[{
-  "trigger":    { 
-                 "text":   "disse",
-	         "start":  58,
-	         "end":    63,
-	        },  
-  "event_type": "Statement",
-  "arguments":  [{
-                  "role":  "Speaker",
-	          "text":  "presidente",
-	          "start": 66,
-	          "end":   76
-		  },
-		  ...
-		]    
-  },
-  ...
+[
+ {
+   "trigger":   { 
+       "text":   "disse",
+       "start":  58,
+       "end":    63,
+   },  
+   "arguments":  [
+       {
+           "role":  "Statement#Speaker",
+           "text":  "presidente",
+           "start": 66,
+           "end":   76
+        },
+        ...
+   ],
+   "event_type": "Statement"		
+ },
+ ...
 ]
   
 ```
@@ -105,7 +107,4 @@ $ python3 src/tefe.py --sentence 'A Petrobras aumentou o preço da gasolina para
 
 Peer-reviewed accepted paper:
 
-10th Brazilian Conference on Intelligent Systems (BRACIS)
-
-* Sacramento A. ; Souza M. . Joint Event Extraction with Contextualized Word Embeddings for the Portuguese 
-Language.
+* Sacramento, A., Souza, M.: Joint Event Extraction with Contextualized Word Embeddings for the Portuguese Language. In: 10th Brazilian Conference on Intelligent System, BRACIS, São Paulo, Brazil, from November 29 to December 3, 2021.
