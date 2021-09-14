@@ -70,9 +70,10 @@ def compose_token_embeddings(sentence, tokenized_text, embeddings):
 def extract(text, options={'sum_all_12':True}, seq_len=512, output_layer_num=12):
         features = {k:v for (k,v) in options.items() if v}
         tokens = tokenizer.tokenize(text)
+        tokens_limit = min(seq_len, len(tokens))
         indices, segments = tokenizer.encode(first = text, max_len = seq_len)
         predicts = model_bert.predict([np.array([indices]), np.array([segments])])[0]
-        predicts = predicts[1:len(tokens)-1,:].reshape((len(tokens)-2, output_layer_num, 768))
+        predicts = predicts[1:tokens_limit-1,:].reshape((tokens_limit-2, output_layer_num, 768))
 
         for (k,v) in features.items():
             if k == 'sum_all_12':
@@ -80,9 +81,9 @@ def extract(text, options={'sum_all_12':True}, seq_len=512, output_layer_num=12)
             if k == 'sum_last_4':
                 features[k] = compose_token_embeddings(text, tokens[1:-1], predicts[:,-4:,:].sum(axis=1))
             if k == 'concat_last_4':
-                features[k] = compose_token_embeddings(text, tokens[1:-1], predicts[:,-4:,:].reshape((len(tokens)-2,768*4)))
+                features[k] = compose_token_embeddings(text, tokens[1:-1], predicts[:,-4:,:].reshape((tokens_limit-2,768*4)))
             if k == 'last_hidden':
-                features[k] = compose_token_embeddings(text, tokens[1:-1], predicts[:,-1:,:].reshape((len(tokens)-2, 768)))
+                features[k] = compose_token_embeddings(text, tokens[1:-1], predicts[:,-1:,:].reshape((tokens_limit-2, 768)))
         return features
 
 
@@ -152,26 +153,32 @@ def get_args_from_labels(label_args, is_arp=True):
 
 def extract_events(text, feature_option, is_pprint=True):
         text_tokens = get_sentence_original_tokens(text, tokenize_and_compose(text))
+        tokens_limit = min(128, len(text_tokens))
         features = extract(text, {feature_option:True})[feature_option]
-        embeddings = np.array(features).reshape((len(text_tokens), 768))
+        embeddings = np.array(features[:tokens_limit]).reshape((tokens_limit, 768))
         sentence_embeddings = np.zeros((1,128,768))
-        sentence_embeddings[0,:len(text_tokens)] = embeddings
+        sentence_embeddings[0,:tokens_limit] = embeddings
         predictions = [model.predict([e.reshape((1, 768)), sentence_embeddings]) for e in embeddings]
-        positions = list(filter((lambda i: i>= 0 and i < len(text_tokens)), [pos for (pos, (pred_ed, pred_args)) in enumerate(predictions) if np.argmax(pred_ed) != 0]))
+        positions = list(filter((lambda i: i>= 0 and i < tokens_limit), [pos for (pos, (pred_ed, pred_args)) in enumerate(predictions) if np.argmax(pred_ed) != 0]))
         output = []
         if len(positions) > 0:
                 start_at = sum([len(token) for token in text_tokens[:positions[0]]])
         for pos in positions:
                 loc_start, loc_end = get_text_location(text, text_tokens[pos], start_at)
                 start_at = loc_end
-                args_preds =  [np.argmax(predictions[pos][1][0,i,:]) for i in range(predictions[pos][1].shape[1]) if i < len(text_tokens)]
+                args_preds =  [np.argmax(predictions[pos][1][0,i,:]) for i in range(predictions[pos][1].shape[1]) if i < tokens_limit]
                 start_arg_search = 0
                 args_event = []
                 event_type = events_types[str(np.argmax(predictions[pos][0]))]
                 for arg_tokens in get_args_from_labels(args_preds):
                         first_arg_token = arg_tokens[0]
                         last_arg_token = arg_tokens[-1]
-                        pattern = re.compile(r'\b%s\b' % '\s*'.join([text_tokens[arg_token[0]] for arg_token in arg_tokens]))
+                        try:
+                            pattern = re.compile(r'\b%s\b' % '\s*'.join([text_tokens[arg_token[0]] for arg_token in arg_tokens]))
+                        except:
+                            if is_pprint:
+                                return json.dumps(output, indent=4)
+                            return output
                         match = pattern.search(text, start_arg_search)
                         if match:
                                 arg_type = args_types[str(first_arg_token[1])]
